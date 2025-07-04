@@ -2,6 +2,7 @@ package com.example.demo.domain.auth.controller;
 
 import com.example.demo.domain.auth.model.request.SendOTPRequest;
 import com.example.demo.domain.auth.model.response.SendOTPResponse;
+import com.example.demo.domain.auth.service.OTPService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     //Service
+    private final OTPService otpService;
+
     @Operation(
             summary = "Email에 OTP 전송",
             description = "Email에 대해서 OTP를 전송합니다"
@@ -25,7 +28,7 @@ public class AccountController {
     @GetMapping("/make-user/{email}")
     public SendOTPResponse sendOTP(
             @RequestBody @Valid SendOTPRequest request
-            ){
-    return "test";
+    ){
+        return otpService.sendOTP(request);
     }
 }
